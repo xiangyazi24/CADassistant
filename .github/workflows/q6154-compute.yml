@@ -1,8 +1,8 @@
-name: q6154-relmini
+name: q6154-full
 
 on:
   push:
-    branches: [q6154-relmini]
+    branches: [q6154-full]
     paths:
       - 'q6154/**'
       - '.github/workflows/q6154-compute.yml'
@@ -13,13 +13,13 @@ permissions:
 jobs:
   compute:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: q6154-relmini
+          ref: q6154-full
           fetch-depth: 0
-      - name: Relation discovery
+      - name: Full exact verification
         shell: bash
         run: |
           set -o pipefail
@@ -31,5 +31,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -f q6154
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "Q6154 mini relation output [skip ci]"
-          git push origin HEAD:q6154-relmini
+          git commit -m "Q6154 q5000 output [skip ci]"
+          git push origin HEAD:q6154-full
